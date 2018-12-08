@@ -1,41 +1,37 @@
- TraitementType = type => {
-    if (/decimale|Decimale/.test(type)) {
-      //traitemen decimale
-      const NumberZero =
-        Number.parseInt(type.slice(type.indexOf(",") + 1, type.length - 1)) - 1;
-      const step = "0." + "0".repeat(NumberZero) + "1";
-      return { type: "number", step: step };
-    } else if (/varChar|varchar|var-char|var_char/.test(type)) {
-      //traitemen varchar
-      return { type: "string", step: null };
-    } else if (/date|Date/.test(type)) {
-      const stepType = type.slice(type.indexOf("(") + 1, type.length - 1);
-      switch (stepType) {
-        case "day":
-          return { type: "date", step: "day" };
-          break;
-        case "month":
-          return { type: "date", step: "month" };
-          break;
-        case "year":
-          return { type: "date", step: "year" };
-          break;
-      }
-    } else if (/time|Time/.test(type)) {
-      const stepType = type.slice(type.indexOf("(") + 1, type.length - 1);
-      switch (stepType) {
-        case "ms":
-          return { type: "time", step: "ms" };
-          break;
-        case "s":
-          return { type: "time", step: "s" };
-          break;
-        case "m":
-          return { type: "time", step: "m" };
-          break;
-        case "h":
-          return { type: "time", step: "h" };
-          break;
-      }
-    }
-  };
+ <React.Fragment>
+              <TextField
+                label={`${rule.label} début`}
+                type={traitemen.type}
+                defaultValue={traitemen.defaultValue}
+                onChange={event =>
+                  this.handleChange(event, rule.label, "start")
+                }
+              />
+
+              <TextField
+                label={`${rule.label} fin`}
+                type={traitemen.type}
+                defaultValue={traitemen.defaultValue}
+                onChange={event => this.handleChange(event, rule.label, "end")}
+              />
+            </React.Fragment>
+
+
+
+             <input
+                label={`${rule.label} début`}
+                type={traitemen.type}
+                defaultValue={traitemen.defaultValue}
+                inputProps={{ step: traitemen.step }}
+                onChange={event =>
+                  this.handleChange(event, rule.label, "start")
+                }
+              />
+
+              <input
+                label={`${rule.label} fin`}
+                type={traitemen.type}
+                defaultValue={traitemen.defaultValue}
+                inputProps={{ step: Number.parseInt(traitemen.step) }}
+                onChange={event => this.handleChange(event, rule.label, "end")}
+              />

@@ -1,15 +1,12 @@
 import React, { Component } from "react";
 
 import "./App.css";
-import NavBar from "./components/NavBar";
+
 import { withStyles } from "@material-ui/core/styles/";
-import Technicien from "./components/technicien";
-import Superviseur from "./components/Superviseur";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
-import Chef from "./components/Chef";
+
 import Filter from "./components/Filter";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import { Button } from "@material-ui/core";
+import FilterAvecButton from "./components/FilterAvecButton";
+
 //enum ,set
 const styles = theme => ({
   container: {
@@ -19,72 +16,118 @@ const styles = theme => ({
 
 class App extends Component {
   state = {
-    technicien: null,
-    superviseur: null,
-    chef: null
+    rules: [
+      { label: "fff", type: "enum('fg4','gy','fdr')" },
+     
+      { label: "nom", type: "varChar" },
+      { label: "montant", type: "decimale(12,1)" },
+      { label: "date", type: "date(day)" },
+      { label: "time", type: "Time(s)" },
+      { label: "Set", type: "set('set1','set2','set3','set4')" },
+      { label: "enum", type: "enum('enum1','enum2','enum3')" }
+    ],
+    filterData: {
+      enum: "",
+      set: [],
+      montant: {
+        min: 0,
+        max: 0
+      },
+      nom: "",
+      paragraph: "",
+
+      date: {
+        from: null,
+        to: null
+      },
+      time: {
+        from: null,
+        to: null
+      }
+    }
   };
-  // componentDidMount() {
-  //   this.fetchSuper();
-  //   this.fetchTechnicien();
-  //   this.fetchChef();
-  // }
-
-  // fetchSuper = async () => {
-  //   fetch("https://yagoubi.000webhostapp.com/JSON/v1/super.json")
-  //     .then(superviseur => superviseur.json())
-  //     .then(superviseur => this.setState({ superviseur }))
-  //     .catch(error => console.log("error fetch superviseur :" + error));
-  // };
-
-  // fetchTechnicien = async () => {
-  //   fetch("https://yagoubi.000webhostapp.com/JSON/v1/technicien.json")
-  //     .then(technicien => technicien.json())
-  //     .then(technicien => this.setState({ technicien }))
-  //     .catch(error => console.log("error fetch technicien :" + error));
-  // };
-  // fetchChef = async () => {
-  //   fetch("http://yagoubi.000webhostapp.com/JSON/v1/chef.json")
-  //     .then(chef => chef.json())
-  //     .then(chef => this.setState({ chef }))
-  //     .catch(error => console.log("error fetch chef :" + error));
-  // };
+  getData = val => {
+    const filterData = { ...val };
+    this.setState({ filterData });
+    console.log(val);
+  };
 
   render() {
-    const chef =
-      this.state.chef !== null ? (
-        <Route
-          path="/chef"
-          render={props => <Chef {...props} chef={this.state.chef} />}
-        />
-      ) : (
-        <CircularProgress />
-      );
-    const technicien =
-      this.state.technicien !== null ? (
-        <Route
-          path="/technicien"
-          render={props => (
-            <Technicien {...props} technicien={this.state.technicien} />
-          )}
-        />
-      ) : (
-        <CircularProgress />
-      );
     const { classes } = this.props;
     return (
       <div className={classes.container}>
-       {/*  <Router>
-          <div>
-            <NavBar />
+        <FilterAvecButton rules={this.state.rules} sendData={val => this.getData(val)} />
 
-            <Switch>
-              <Route path="/" component={Superviseur} exact />
-              {chef}
-              {technicien}
-            </Switch>
-          </div>
-        </Router> */}
-        <Filter />
+        <h2>App component :</h2>
+
+        <h3>
+          nom :{" "}
+          <mark>
+            {this.state.filterData.nom ? this.state.filterData.nom : null}
+          </mark>
+        </h3>
+        <h3>
+          montant max :{" "}
+          <mark>
+            {this.state.filterData.montant.max
+              ? this.state.filterData.montant.max
+              : null}
+          </mark>
+        </h3>
+        <h3>
+          montant min :{" "}
+          <mark>
+            {this.state.filterData.montant.min
+              ? this.state.filterData.montant.min
+              : null}
+          </mark>
+        </h3>
+        <h3>
+          date from :{" "}
+          <mark>
+            {this.state.filterData.date.from
+              ? this.state.filterData.date.from
+              : null}
+          </mark>
+        </h3>
+        <h3>
+          date to :{" "}
+          <mark>
+            {this.state.filterData.date.to
+              ? this.state.filterData.date.to
+              : null}
+          </mark>
+        </h3>
+        <h3>
+          enum :{" "}
+          <mark>
+            {this.state.filterData.enum ? this.state.filterData.enum : null}
+          </mark>
+        </h3>
+
+        <h3>
+          set :{" "}
+          <mark>
+            {this.state.filterData.set ? this.state.filterData.set : null}
+          </mark>
+        </h3>
+
+        <h3>
+          time from :{" "}
+          <mark>
+            {this.state.filterData.time.from
+              ? this.state.filterData.time.from
+              : null}
+          </mark>
+        </h3>
+        <h3>
+          time to :{" "}
+          <mark>
+            {this.state.filterData.time.to
+              ? this.state.filterData.time.to
+              : null}
+          </mark>
+        </h3>
       </div>
     );
   }

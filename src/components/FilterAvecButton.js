@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
 
-import { TextField, Button } from "@material-ui/core";
+import { TextField, Fab } from "@material-ui/core";
 import { TraitementType } from "./Utils";
 import DatePicker from "./Date";
+import Search from "@material-ui/icons/Search";
 
 import Set from "./Set";
 import Enum from "./Enum";
@@ -15,88 +16,34 @@ const styles = theme =>
     }
   };
 
-class Filter extends Component {
+class FilterAvecButton extends Component {
   state = {
-    filterData: {
-      enum: "",
-      set: [],
-      montant: {
-        min: 0,
-        max: 0
-      },
-      nom: "",
-      paragraph: "",
-
-      date: {
-        from: null,
-        to: null
-      },
-      time: {
-        from: null,
-        to: null
-      }
-    }
+    
   };
-  getRadioData = val => {
-    const { filterData } = { ...this.state };
-    filterData.enum = val;
-    this.setState({ filterData });
-
-    this.props.sendData(filterData);
+  getRadioCheckboxData = (val,label) => {
+    
+    
+    this.setState({ [label] : val });
   };
-  getCheckBoxData = val => {
-    const { filterData } = { ...this.state };
-    filterData.set = val;
-    this.setState({ filterData });
-    this.props.sendData(filterData);
-  };
+  
   handleChange = (event, label, MinOrMax) => {
-    switch (label) {
-      case "time":
-        {
-          const { filterData } = { ...this.state };
-          filterData.time[MinOrMax] = event.target.value;
-          this.setState({ filterData });
-          this.props.sendData(filterData);
-        }
-        break;
-
-      case "montant":
-        {
-          const { filterData } = { ...this.state };
-          filterData.montant[MinOrMax] = event.target.value;
-          this.setState({ filterData });
-          this.props.sendData(filterData);
-        }
-        break;
-      default:
-        const { filterData } = { ...this.state };
-        filterData.nom = event.target.value;
-        this.setState({ filterData });
-        this.props.sendData(filterData);
-        break;
-    }
+   if(MinOrMax){
+    /* if(this.state[label] === undefined){
+        this.setState({ [label] : {} });
+        const newLabel = {...this.state[label]};
+        newLabel[MinOrMax]  = event.target.value;
+        this.setState({newLabel});
+    } */
     
+   }else{
+    this.setState({ [label] : event.target.value });
+   }
   };
-  getDatePickerData = val => {
-    if (val.from) {
-      const { filterData } = { ...this.state };
-      filterData.date.from = val.from;
-      this.setState({ filterData });
-      this.props.sendData(filterData);
-    } else {
-      const { filterData } = { ...this.state };
-      filterData.date.to = val.to;
-      this.setState({ filterData });
-      this.props.sendData(filterData);
-    }
-    
+  handeleClick = () => {
+    const { filterData } = { ...this.state };
+    this.props.sendData(filterData);
   };
-
-  /* componentDidUpdate(){
-  const filterData = {...this.state}
-  this.props.sendData(filterData);
- } */
+ 
   render() {
     const { classes } = this.props;
 
@@ -141,9 +88,7 @@ class Filter extends Component {
                 label={`${rule.label} début`}
                 defaultValue={traitemen.defaultValue}
                 inputProps={{ step: traitemen.step }}
-                onChange={event =>
-                  this.handleChange(event, rule.label, "from")
-                }
+                onChange={event => this.handleChange(event, rule.label, "from")}
               />
 
               <TextField
@@ -162,23 +107,31 @@ class Filter extends Component {
 
           {traitemen.type === "set" ? (
             <Set
-              sendCheckBoxData={this.getCheckBoxData}
+              sendCheckBoxData={(val)=>this.getRadioCheckboxData(val,rule.label)}
               items={traitemen.defaultValue}
               label={rule.label}
             />
           ) : null}
           {traitemen.type === "enum" ? (
             <Enum
-              sendRadioData={this.getRadioData}
+              sendRadioData={(val)=>this.getRadioCheckboxData(val,rule.label)}
               items={traitemen.defaultValue}
               label={rule.label}
+
             />
           ) : null}
         </span>
       );
     });
-    return <form>{filterPanel}</form>;
+    return (
+      <form>
+        {filterPanel}
+        <Fab color="primary" size="small" onClick={this.handeleClick}>
+          <Search />
+        </Fab>
+      </form>
+    );
   }
 }
 
-export default withStyles(styles)(Filter);
+export default withStyles(styles)(FilterAvecButton);
