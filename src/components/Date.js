@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 
-import moment from "moment";
+import DayPickerInput from 'react-day-picker/DayPickerInput';
+import 'react-day-picker/lib/style.css';
 import Helmet from "react-helmet";
 
-import DayPickerInput from "react-day-picker/DayPickerInput";
-import "react-day-picker/lib/style.css";
 
 
 class DatePicker extends Component {
@@ -74,7 +73,7 @@ class DatePicker extends Component {
         <Helmet>
           <style>{`
   .InputFromTo .DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--outside) {
-    background-color: #f0f8ff !important;
+    background-color: #f0f866 !important;
     color: #4a90e2;
     
   }
@@ -92,6 +91,7 @@ class DatePicker extends Component {
   }
   .InputFromTo .DayPickerInput-Overlay {
     width: 550px;
+    background : #f2f8ff !important;
   }
   .InputFromTo-to .DayPickerInput-Overlay {
     margin-left: -198px;

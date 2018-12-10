@@ -17,38 +17,20 @@ const styles = theme => ({
 class App extends Component {
   state = {
     rules: [
-      { label: "fff", type: "enum('fg4','gy','fdr')" },
-     
+      { label: "Slect___Multiple", type: "Select-Multiple('A','B','C','D')" },
+      { label: "SlectMultiple__number", type: "Select-Multiple(114,92,43,41,15,8,14,35,6,788,47)" },
       { label: "nom", type: "varChar" },
       { label: "montant", type: "decimale(12,1)" },
       { label: "date", type: "date(day)" },
       { label: "time", type: "Time(s)" },
       { label: "Set", type: "set('set1','set2','set3','set4')" },
-      { label: "enum", type: "enum('enum1','enum2','enum3')" }
+      { label: "enum", type: "enum('enum1','enum2','enum3')" },
+      { label: "nom", type: "varChar" }
     ],
-    filterData: {
-      enum: "",
-      set: [],
-      montant: {
-        min: 0,
-        max: 0
-      },
-      nom: "",
-      paragraph: "",
-
-      date: {
-        from: null,
-        to: null
-      },
-      time: {
-        from: null,
-        to: null
-      }
-    }
+    
   };
   getData = val => {
-    const filterData = { ...val };
-    this.setState({ filterData });
+    
     console.log(val);
   };
 
@@ -58,76 +40,7 @@ class App extends Component {
       <div className={classes.container}>
         <FilterAvecButton rules={this.state.rules} sendData={val => this.getData(val)} />
 
-        <h2>App component :</h2>
-
-        <h3>
-          nom :{" "}
-          <mark>
-            {this.state.filterData.nom ? this.state.filterData.nom : null}
-          </mark>
-        </h3>
-        <h3>
-          montant max :{" "}
-          <mark>
-            {this.state.filterData.montant.max
-              ? this.state.filterData.montant.max
-              : null}
-          </mark>
-        </h3>
-        <h3>
-          montant min :{" "}
-          <mark>
-            {this.state.filterData.montant.min
-              ? this.state.filterData.montant.min
-              : null}
-          </mark>
-        </h3>
-        <h3>
-          date from :{" "}
-          <mark>
-            {this.state.filterData.date.from
-              ? this.state.filterData.date.from
-              : null}
-          </mark>
-        </h3>
-        <h3>
-          date to :{" "}
-          <mark>
-            {this.state.filterData.date.to
-              ? this.state.filterData.date.to
-              : null}
-          </mark>
-        </h3>
-        <h3>
-          enum :{" "}
-          <mark>
-            {this.state.filterData.enum ? this.state.filterData.enum : null}
-          </mark>
-        </h3>
-
-        <h3>
-          set :{" "}
-          <mark>
-            {this.state.filterData.set ? this.state.filterData.set : null}
-          </mark>
-        </h3>
-
-        <h3>
-          time from :{" "}
-          <mark>
-            {this.state.filterData.time.from
-              ? this.state.filterData.time.from
-              : null}
-          </mark>
-        </h3>
-        <h3>
-          time to :{" "}
-          <mark>
-            {this.state.filterData.time.to
-              ? this.state.filterData.time.to
-              : null}
-          </mark>
-        </h3>
+       
       </div>
     );
   }

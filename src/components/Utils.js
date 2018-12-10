@@ -72,12 +72,25 @@ export function TraitementType (type){
         .replace(/'/g,"")
         .split(',');
         
+        
         return {
             type : "enum",
             defaultValue : arraySet
         }
 
-    } else {
+    } else if(/Select-Multiple|SelectMultiple/.test(type)){
+        const arraySet = type.slice(type.indexOf('(') + 1,type.indexOf(')'))
+        .replace(/'/g,"")
+        .split(',').map(value=>{return {value : value,label : value}});
+       
+        
+        
+        return {
+            type : "Select-Multiple",
+            defaultValue : arraySet
+        }
+
+    }else {
         return {
             type : "",
             defaultValue : ""
