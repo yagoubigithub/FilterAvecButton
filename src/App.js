@@ -13,20 +13,24 @@ const styles = theme => ({
     background: "#fff"
   }
 });
-
+const rules =[
+  { label: "Slect___Multiple", type: "Select-Multiple('A','B','C','D')" },
+  { label: "SlectMultiple__number", type: "Select-Multiple(114,92,43,41,15,8,14,35,6,788,47)" },
+  { label: "nom", type: "varChar" },
+  { label: "montant", type: "decimale(12,3)" },
+  { label: "date", type: "date(day)" },
+  { label: "time", type: "Time(s)" },
+  { label: "Set", type: "set('set1','set2','set3','set4')" },
+  { label: "enum", type: "enum('enum1','enum2','enum3')" },
+  { label: "prenom", type: "varChar" },
+  { label: "nombre de personne", type: "int" },
+];
 class App extends Component {
   state = {
-    rules: [
-      { label: "Slect___Multiple", type: "Select-Multiple('A','B','C','D')" },
-      { label: "SlectMultiple__number", type: "Select-Multiple(114,92,43,41,15,8,14,35,6,788,47)" },
-      { label: "nom", type: "varChar" },
-      { label: "montant", type: "decimale(12,1)" },
-      { label: "date", type: "date(day)" },
-      { label: "time", type: "Time(s)" },
-      { label: "Set", type: "set('set1','set2','set3','set4')" },
-      { label: "enum", type: "enum('enum1','enum2','enum3')" },
-      { label: "nom", type: "varChar" }
-    ],
+   
+  //enum => select unique
+  //set ==> multip select
+  //checkbox => =
     
   };
   getData = val => {
@@ -38,7 +42,7 @@ class App extends Component {
     const { classes } = this.props;
     return (
       <div className={classes.container}>
-        <FilterAvecButton rules={this.state.rules} sendData={val => this.getData(val)} />
+        <FilterAvecButton rules={rules} sendData={val => this.getData(val)} />
 
        
       </div>

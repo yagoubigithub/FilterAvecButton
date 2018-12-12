@@ -5,7 +5,10 @@ export function TraitementType (type){
         Number.parseInt(type.slice(type.indexOf(",") + 1, type.length - 1)) - 1;
       const step = "0." + "0".repeat(NumberZero) + "1";
       return { type: "number", step: step, defaultValue: 0 };
-    } else if (/varChar|varchar|var-char|var_char/.test(type)) {
+    }else if (/int|Int|INT|entier|Integer/.test(type)) {
+        //traitemen entier
+        return { type: "number", step: 1, defaultValue: 0 };
+      } else if (/varChar|varchar|var-char|var_char/.test(type)) {
       //traitemen varchar
       return { type: "string", step: null };
     } else if (/date|Date/.test(type)) {

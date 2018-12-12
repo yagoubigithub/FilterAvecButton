@@ -77,18 +77,13 @@ class DatePicker extends Component {
     color: #4a90e2;
     
   }
+  .DayPickerInput input{
+    width : 150px ;
+    padding : 15px;
+    box-sizing : border-box;
+  }
   
-  .InputFromTo .DayPicker-Day {
-    border-radius: 0 !important;
-  }
-  .InputFromTo .DayPicker-Day--start {
-    border-top-left-radius: 50% !important;
-    border-bottom-left-radius: 50% !important;
-  }
-  .InputFromTo .DayPicker-Day--end {
-    border-top-right-radius: 50% !important;
-    border-bottom-right-radius: 50% !important;
-  }
+  
   .InputFromTo .DayPickerInput-Overlay {
     width: 550px;
     background : #f2f8ff !important;
