@@ -15,15 +15,19 @@ const styles = theme => ({
 });
 const rules =[
   { label: "Slect___Multiple", type: "Select-Multiple('A','B','C','D')" },
-  { label: "SlectMultiple__number", type: "Select-Multiple(114,92,43,41,15,8,14,35,6,788,47)" },
+  { label: "SlectMultiple__number", type: "Select(114,92,43,41,15,8,14,35,6,788,47)" },
   { label: "nom", type: "varChar" },
   { label: "montant", type: "decimale(12,3)" },
-  { label: "date", type: "date(day)" },
+  { label: "argent", type: "decimale-minmax(12,3)" },
+  { label: "date_range", type: "date-minmax(day)" },
+  { label: "date de naissance", type: "date(day)" },
   { label: "time", type: "Time(s)" },
+  { label: "deplacement", type: "Time-minmax(s)" },
   { label: "Set", type: "set('set1','set2','set3','set4')" },
   { label: "enum", type: "enum('enum1','enum2','enum3')" },
   { label: "prenom", type: "varChar" },
-  { label: "nombre de personne", type: "int" },
+  { label: "nombre de personne", type: "int-minmax" },
+  { label: "nombre de departement", type: "int" },
 ];
 class App extends Component {
   state = {

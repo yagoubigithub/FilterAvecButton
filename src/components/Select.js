@@ -28,7 +28,7 @@ class MultiSelect extends Component {
             value={selectedOption}
             onChange={this.handleChange}
             options={this.props.options}
-            isMulti
+            isMulti={this.props.isMulti}
             isSearchable
             placeholder={this.props.placeholder}
             styles={customStyles}

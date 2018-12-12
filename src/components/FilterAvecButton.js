@@ -1,16 +1,13 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
-
 import { TextField, Button } from "@material-ui/core";
 import { TraitementType } from "./Utils";
 import DatePicker from "./Date";
 import MultiSelect from "./Select";
 import Grid from "@material-ui/core/Grid";
-
 import Search from "@material-ui/icons/Search";
 import Set from "./Set";
 import Enum from "./Enum";
-import { min } from "moment";
 const styles = theme =>
   console.log(theme) || {
     container: {
@@ -37,38 +34,23 @@ class FilterAvecButton extends Component {
     array: {}
   };
   getCheckboxData = (val, label) => {
-
     let array = { ...this.state.array };
     array[label] = val;
     this.setState({ array });
-
   };
-  getRadioData = (val, label)  =>{
+  getRadioData = (val, label) => {
     let serch = { ...this.state.serch };
     serch[label] = val;
     this.setState({ serch });
-  }
+  };
 
   handleChange = (event, label, MinOrMax) => {
-    /*
-   minmax : {
-     time : {
-       type : "time",
-       min : "222:00",
-       max : "114:444"
-     },
-     montaont : {
-       type : "number",
-       min : "144",
-       max : "145"
-     }
-    }
-   */ let minmax = {
+  let minmax = {
       ...this.state.minmax
     };
     let serch = { ...this.state.serch };
     if (MinOrMax) {
-      //const v = { ...this.state[label] };
+    
 
       if (minmax[label]) {
         const myLabel = { ...minmax[label] };
@@ -80,13 +62,9 @@ class FilterAvecButton extends Component {
         this.setState({ minmax });
       }
     } else {
-     
-        
-        serch[label] = event.target.value;
-        
-        this.setState({ serch });
-     
-      
+      serch[label] = event.target.value;
+
+      this.setState({ serch });
     }
   };
   handeleClick = () => {
@@ -94,26 +72,34 @@ class FilterAvecButton extends Component {
     this.props.sendData(filterData);
   };
   getDatePickerData = val => {
-    if (this.state.date) {
-      const date = { ...this.state.date };
+    const minmax = { ...this.state.minmax };
+    if (this.state.minmax.date) {
       if (val.from) {
-        date.from = val.from;
-        this.setState({ date });
+        minmax.date.from = val.from;
       } else {
-        date.to = val.to;
-        this.setState({ date });
+        minmax.date.to = val.to;
       }
     } else {
-      this.setState({ date: val });
+      minmax.date = val;
     }
+    this.setState({ minmax });
   };
-  getMultiSelectValue = (val, label) => {
-    this.setState({ [label]: val });
+  getMultiSelectValue = (val, label,returnType) => {
+    if(returnType){
+      const array = {...this.state.array};
+      array[label] = val.map(v=>v.value);
+      this.setState({ array });
+    }else{
+      const serch = {...this.state.serch};
+      serch[label] = val.value;
+      this.setState({ serch });
+    }
+   
   };
 
   render() {
     const { classes } = this.props;
-    let count = 0;
+    
 
     const filterPanel = this.props.rules.map(rule => {
       const traitemen = TraitementType(rule.type);
@@ -121,8 +107,9 @@ class FilterAvecButton extends Component {
 
       return (
         <Grid xs={12} sm={4} item key={rule.label}>
-          {traitemen.type === "number" ? (
-            // Number
+      
+          {traitemen.type === "number" && traitemen.returnType === "minmax" ? (
+            // Number minmax
 
             <span>
               <TextField
@@ -145,6 +132,20 @@ class FilterAvecButton extends Component {
               />
             </span>
           ) : null}
+          {traitemen.type === "number" && traitemen.returnType !== "minmax" ? (
+            // Number
+
+            <span>
+              <TextField
+                type="number"
+                defaultValue={traitemen.step}
+                step={traitemen.step}
+                label={rule.label}
+                className={classes.textField}
+                onChange={event => this.handleChange(event, rule.label)}
+              />
+            </span>
+          ) : null}
 
           {traitemen.type === "string" ? (
             <TextField
@@ -155,14 +156,14 @@ class FilterAvecButton extends Component {
             />
           ) : null}
 
-          {traitemen.type === "time" ? (
+          {traitemen.type === "time" && traitemen.returnType === "minmax" ? (
             <span>
               <TextField
                 type="time"
                 label={`${rule.label} début`}
                 defaultValue={traitemen.defaultValue}
                 inputProps={{ step: traitemen.step }}
-                onChange={event => this.handleChange(event, rule.label, "from")}
+                onChange={event => this.handleChange(event, rule.label, "start")}
                 style={{ margin: 5 }}
                 className={classes.textField}
               />
@@ -172,22 +173,46 @@ class FilterAvecButton extends Component {
                 type={traitemen.type}
                 defaultValue={traitemen.defaultValue}
                 inputProps={{ step: Number.parseInt(traitemen.step) }}
-                onChange={event => this.handleChange(event, rule.label, "to")}
+                onChange={event => this.handleChange(event, rule.label, "end")}
                 style={{ margin: 5 }}
                 className={classes.textField}
               />
             </span>
           ) : null}
 
-          {traitemen.type === "date" ? (
+           {traitemen.type === "time" && traitemen.returnType !== "minmax" ? (
+            <span>
+              <TextField
+                type="time"
+                label={rule.label}
+                defaultValue={traitemen.defaultValue}
+                inputProps={{ step: traitemen.step }}
+                onChange={event => this.handleChange(event, rule.label)}
+                style={{ margin: 5 }}
+                className={classes.textField}
+              />
+
+            </span>
+          ) : null}
+
+          {traitemen.type === "date" && traitemen.returnType === "minmax" ? (
             <DatePicker sendDatePickerData={this.getDatePickerData} />
+          ) : null}
+          {traitemen.type === "date" && traitemen.returnType !== "minmax" ? (
+            <TextField
+                type="date"
+                label={rule.label}
+                defaultValue={traitemen.defaultValue}
+                
+                onChange={event => this.handleChange(event, rule.label)}
+                style={{ margin: 5 }}
+                className={classes.textField}
+              />
           ) : null}
 
           {traitemen.type === "set" ? (
             <Set
-              sendCheckBoxData={val =>
-                this.getCheckboxData(val, rule.label)
-              }
+              sendCheckBoxData={val => this.getCheckboxData(val, rule.label)}
               items={traitemen.defaultValue}
               label={rule.label}
             />
@@ -200,13 +225,24 @@ class FilterAvecButton extends Component {
             />
           ) : null}
 
-          {traitemen.type === "Select-Multiple" ? (
+          {traitemen.type === "Select"  && traitemen.returnType === "multiple" ? (
+            <MultiSelect
+              options={traitemen.defaultValue}
+              placeholder={rule.label}
+              sendMultiSelectData={val =>
+                this.getMultiSelectValue(val, rule.label,"multiple")
+              }
+              isMulti={true}
+            />
+          ) : null}
+          {traitemen.type === "Select" && traitemen.returnType !== "multiple" ? (
             <MultiSelect
               options={traitemen.defaultValue}
               placeholder={rule.label}
               sendMultiSelectData={val =>
                 this.getMultiSelectValue(val, rule.label)
               }
+              isMulti={false}
             />
           ) : null}
         </Grid>
