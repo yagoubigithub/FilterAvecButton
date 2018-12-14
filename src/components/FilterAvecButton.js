@@ -22,9 +22,6 @@ const styles = theme =>
     }
   };
 
-// date => 4
-//react-multimedia-capture
-//js media devices
 
 class FilterAvecButton extends Component {
   state = {

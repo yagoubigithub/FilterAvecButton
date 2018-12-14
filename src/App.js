@@ -29,13 +29,7 @@ const rules =[
   { label: "nombre de departement", type: "int" },
 ];
 class App extends Component {
-  state = {
-   
-  //enum => select unique
-  //set ==> multip select
-  //checkbox => =
-    
-  };
+ 
   getData = val => {
     
     console.log(val);
