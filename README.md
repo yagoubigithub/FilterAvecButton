@@ -1,24 +1,4 @@
 # FilterAvecButton component :
-```sh
-const rules =[
-  { label: "Slect___Multiple", type: "Select-Multiple('1','2','3','D')" },
-  { label: "SlectMultiple__number", type: "Select(114,92,43,41,15,8,14,35,6,788,47)" },
-  { label: "nom", type: "varChar" },
-  { label: "montant", type: "decimale(12,3)" },
-  { label: "argent", type: "decimale-minmax(12,3)" },
-  { label: "date_range", type: "date-minmax(day)" },
-  { label: "date de naissance", type: "date(day)" },
-  { label: "time", type: "Time(s)" },
-  { label: "deplacement", type: "Time-minmax(s)" },
-  { label: "Set", type: "set('set1','set2','set3','set4')" },
-  { label: "enum", type: "enum('1','4','enum3')" },
-  { label: "prenom", type: "varChar" },
-  { label: "nombre de personne", type: "int-minmax" },
-  { label: "nombre de departement", type: "int" },
-];
-```
-
-### FilterAvecButton
 
 >You give this component array of object as props ```<FilterAvecButton rules={rules} />```  each object has label and type of the label .
 the component treat the array and put a textfield for every label in the array according to the type of the label and this component return data as well.
@@ -67,5 +47,18 @@ filterData  : {
     }
 }
 ```
+##### The type in the rules and the type returned from FilterAvecButton :
+
+| rules type | filterData type |
+| ------ | ------ |
+| Select-Multiple | in array object  :{ Name of label :{ value : [Array of value] ,type : type of the values in the array } |
+| Select  | in serch object  : {  Name of label : {value : "the value of selected value" ,type : "string"} }  |
+| varChar  | in serch object  : {  Name of label : {value : "the value typed in the textfield" ,type : "string"} } |
+| decimale(Number of digits after comma) | in serch object  : {  Name of label : {value : "the number typed in the textfield " ,type : "number"} } |
+| decimale-minmax(Number of digits after comma) | in minmax object  : {Name of label : {value :{min : "min value", max : "max value"} ,type : "number" }}|
+| date-minmax |  in minmax object  : {Name of label : {value :{from : "Start date", max : "End date"} ,type : "date" }}|
+| date | in serch object  : {  Name of label : {value : "the date returned from  textfield" ,type : "date"} } |
+| Time(step) step= ```s``` the step is by second OR ```m``` the step is by minute OR ```h``` the step is by houre   | in serch object  : {  Name of label : {value : "the time returned from  textfield" ,type : "time"} } |
+|Time-minmax(step)| in minmax object  : {Name of label : {value :{start : "Start time", end : "End time"} ,type : "time" }}|
 
 
