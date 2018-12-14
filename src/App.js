@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 
-import "./App.css";
 
 import { withStyles } from "@material-ui/core/styles/";
 
-import Filter from "./components/Filter";
 import FilterAvecButton from "./components/FilterAvecButton";
 
 //enum ,set
@@ -16,7 +14,7 @@ const styles = theme => ({
 });
 const rules =[
   { label: "Slect___Multiple", type: "Select-Multiple('1','2','3','D')" },
-  { label: "SlectMultiple__number", type: "Select(114,92,43,41,15,8,14,35,6,788,47)" },
+  { label: "SlectMultiple__number", type: "Select(114,92,43,41,'15',8,14,35,6,788,47)" },
   { label: "nom", type: "varChar" },
   { label: "montant", type: "decimale(5)" },
   { label: "argent", type: "decimale-minmax(3)" },

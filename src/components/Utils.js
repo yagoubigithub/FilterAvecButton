@@ -57,7 +57,7 @@ export function TraitementType(type) {
         defaultValue: currentTime.slice(0, currentTime.length - 3)
         
       };
-      break;
+      
     case "m":
       return {
         type: "time",
@@ -65,7 +65,7 @@ export function TraitementType(type) {
         defaultValue: currentTime.slice(0, currentTime.length - 3)
        
       };
-      break;
+     
     case "h":
       return {
         type: "time",
@@ -73,7 +73,7 @@ export function TraitementType(type) {
         defaultValue: currentTime.slice(0, currentTime.length - 3)
        
       };
-      break;
+     
       default : 
       break;
   }
@@ -86,7 +86,7 @@ export function TraitementType(type) {
         defaultValue: currentTime.slice(0, currentTime.length - 3)
         ,returnType  : "minmax"
       };
-      break;
+      
     case "m":
       return {
         type: "time",
@@ -94,7 +94,7 @@ export function TraitementType(type) {
         defaultValue: currentTime.slice(0, currentTime.length - 3)
         ,returnType  : "minmax"
       };
-      break;
+     
     case "h":
       return {
         type: "time",
@@ -102,6 +102,8 @@ export function TraitementType(type) {
         defaultValue: currentTime.slice(0, currentTime.length - 3)
         ,returnType  : "minmax"
       };
+     
+      default : 
       break;
   }
  }
