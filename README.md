@@ -1,44 +1,25 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# FilterAvecButton component :
+```sh
+const rules =[
+  { label: "Slect___Multiple", type: "Select-Multiple('1','2','3','D')" },
+  { label: "SlectMultiple__number", type: "Select(114,92,43,41,15,8,14,35,6,788,47)" },
+  { label: "nom", type: "varChar" },
+  { label: "montant", type: "decimale(12,3)" },
+  { label: "argent", type: "decimale-minmax(12,3)" },
+  { label: "date_range", type: "date-minmax(day)" },
+  { label: "date de naissance", type: "date(day)" },
+  { label: "time", type: "Time(s)" },
+  { label: "deplacement", type: "Time-minmax(s)" },
+  { label: "Set", type: "set('set1','set2','set3','set4')" },
+  { label: "enum", type: "enum('1','4','enum3')" },
+  { label: "prenom", type: "varChar" },
+  { label: "nombre de personne", type: "int-minmax" },
+  { label: "nombre de departement", type: "int" },
+];
+```
 
-## Available Scripts
+##### FilterAvecButton
+You give this component array of object as props  each object has label and type of the label .
+the component treat the array and put a textfield for every label in the array according to the type of the label and this component return data as well.
 
-In the project directory, you can run:
 
-### `npm start`
-
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
