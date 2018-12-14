@@ -24,7 +24,7 @@ const rules =[
   { label: "date de naissance", type: "date(day)" },
   { label: "time", type: "Time(s)" },
   { label: "deplacement", type: "Time-minmax(s)" },
-  { label: "Set", type: "set('set1','set2','set3','set4')" },
+  { label: "technicien", type: "set('Mohamed','Ali','Omar','Rafik','Nadire')" },
   { label: "enum", type: "enum('1','4','enum3')" },
   { label: "prenom", type: "varChar" },
   { label: "nombre de personne", type: "int-minmax" },

@@ -51,8 +51,8 @@ class FilterAvecButton extends Component {
     if (MinOrMax) {
       if (minmax[label]) {
         const myLabel = { ...minmax[label] };
-        myLabel[MinOrMax] = event.target.value;
-        minmax[label] = { value: myLabel, type: type };
+        myLabel.value[MinOrMax] = event.target.value;
+        minmax[label] = myLabel;
         this.setState({ minmax });
       } else {
         minmax[label] = {
@@ -69,7 +69,7 @@ class FilterAvecButton extends Component {
   };
   handeleClick = () => {
     const filterData = { ...this.state };
-    this.props.sendData({filterData : filterData});
+    this.props.sendData(filterData);
   };
   getDatePickerData = (val, label) => {
     const minmax = { ...this.state.minmax };

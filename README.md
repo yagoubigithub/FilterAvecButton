@@ -18,8 +18,54 @@ const rules =[
 ];
 ```
 
-##### FilterAvecButton
-You give this component array of object as props  each object has label and type of the label .
+### FilterAvecButton
+
+>You give this component array of object as props ```<FilterAvecButton rules={rules} />```  each object has label and type of the label .
 the component treat the array and put a textfield for every label in the array according to the type of the label and this component return data as well.
+the data is an object  : ```filterData```  this object has 3 object ```{minmax,array,serch}```
+
+
+#### exemple :
+In parent compnent  :
+```
+const rules =[
+   { label: "argent", type: "decimale-minmax(12,3)" },
+   { label: "deplacement", type: "time(s)" },
+   { label: "technicien", type: "set('Mohamed','Ali','Omar','Rafik','Nadire')" },
+  ];
+```
+``` 
+ getData = filterData => {
+    //handel the data 
+    console.log(filterData);
+  };
+```
+ ```sh
+<FilterAvecButton rules={rules} sendData={filterData=>this.getData(filterData)} />
+```
+#### the Data from the  FilterAvecButton  component
+in the console :
+```
+filterData  : {
+    minmax : {
+        argent : { 
+                 value : {min :"12.02", max : "14:14"},
+                 type : "number" 
+              }
+         },
+    array :{
+        technicien :{
+            value :['Mohamed','Rafik', 'Omar'],
+            type :'string'
+        }
+    }
+    serch :{
+         deplacement : {
+             value : "12:05",
+             type : "time"
+         }
+    }
+}
+```
 
 
