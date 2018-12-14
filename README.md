@@ -47,7 +47,7 @@ filterData  : {
     }
 }
 ```
-##### The type in the rules and the type returned from FilterAvecButton :
+#### The type in the rules and the type returned from FilterAvecButton :
 
 | rules type | filterData type |
 | ------ | ------ |
