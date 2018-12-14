@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
 
-import purple  from '@material-ui/core/colors/purple'
 
 const customStyles = {
     option: (provided, state) => ({

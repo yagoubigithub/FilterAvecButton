@@ -10,11 +10,12 @@ import FilterAvecButton from "./components/FilterAvecButton";
 //enum ,set
 const styles = theme => ({
   container: {
-    background: "#fff"
+    background: "#fff",
+   
   }
 });
 const rules =[
-  { label: "Slect___Multiple", type: "Select-Multiple('A','B','C','D')" },
+  { label: "Slect___Multiple", type: "Select-Multiple('1','2','3','D')" },
   { label: "SlectMultiple__number", type: "Select(114,92,43,41,15,8,14,35,6,788,47)" },
   { label: "nom", type: "varChar" },
   { label: "montant", type: "decimale(12,3)" },
@@ -24,7 +25,7 @@ const rules =[
   { label: "time", type: "Time(s)" },
   { label: "deplacement", type: "Time-minmax(s)" },
   { label: "Set", type: "set('set1','set2','set3','set4')" },
-  { label: "enum", type: "enum('enum1','enum2','enum3')" },
+  { label: "enum", type: "enum('1','4','enum3')" },
   { label: "prenom", type: "varChar" },
   { label: "nombre de personne", type: "int-minmax" },
   { label: "nombre de departement", type: "int" },

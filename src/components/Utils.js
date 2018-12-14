@@ -74,6 +74,8 @@ export function TraitementType(type) {
        
       };
       break;
+      default : 
+      break;
   }
  }else{
   switch (stepType) {

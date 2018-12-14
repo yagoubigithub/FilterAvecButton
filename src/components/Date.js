@@ -12,7 +12,7 @@ class DatePicker extends Component {
     from: undefined
   };
   showFromMonth() {
-    const { from, to } = this.state;
+    const { from } = this.state;
     if (!from) {
       return;
     }
@@ -30,7 +30,7 @@ class DatePicker extends Component {
   handleToChange(to) {
     const d = new Date(to).toISOString().slice(0, 10);
     this.props.sendDatePickerData({to : d});
-    console.log(d);
+   
     this.setState({ to } , this.showFromMonth);
   }
 
@@ -53,10 +53,10 @@ class DatePicker extends Component {
             onDayClick: () => this.to.getInput().focus()
           }}
           onDayChange={this.handleFromChange}
-        />{" "}
-        —{" "}
+        />
         <span className="InputFromTo-to">
           <DayPickerInput
+          
             ref={el => (this.to = el)}
             placeholder="Date fin"
             dayPickerProps={{
@@ -71,26 +71,43 @@ class DatePicker extends Component {
           />
         </span>
         <Helmet>
-          <style>{`
+        <style>{`
   .InputFromTo .DayPicker-Day--selected:not(.DayPicker-Day--start):not(.DayPicker-Day--end):not(.DayPicker-Day--outside) {
-    background-color: #f0f866 !important;
+    background-color: #f0f8ff !important;
     color: #4a90e2;
-    
   }
-  .DayPickerInput input{
-    width : 150px ;
-    padding : 15px;
-    box-sizing : border-box;
+  .InputFromTo .DayPicker-Day {
+    border-radius: 0 !important;
   }
-  
-  
+  .InputFromTo .DayPicker-Day--start {
+    border-top-left-radius: 50% !important;
+    border-bottom-left-radius: 50% !important;
+  }
+  .InputFromTo .DayPicker-Day--end {
+    border-top-right-radius: 50% !important;
+    border-bottom-right-radius: 50% !important;
+  }
   .InputFromTo .DayPickerInput-Overlay {
     width: 550px;
-    background : #f2f8ff !important;
   }
   .InputFromTo-to .DayPickerInput-Overlay {
     margin-left: -198px;
   }
+  .InputFromTo{
+    display :flex;
+    flex-direction : row;
+  }
+  .DayPickerInput input {
+    width : 100% !important;
+    padding : 4px 0;
+  }
+  @media only screen and (max-width: 650px) {
+    .InputFromTo{
+    flex-direction : column;
+  }
+  
+  
+}
 `}</style>
         </Helmet>
       </span>

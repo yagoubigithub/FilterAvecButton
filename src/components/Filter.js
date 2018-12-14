@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
 
-import { TextField, Button } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
 import { TraitementType } from "./Utils";
 import DatePicker from "./Date";
 
@@ -98,7 +98,7 @@ class Filter extends Component {
   this.props.sendData(filterData);
  } */
   render() {
-    const { classes } = this.props;
+    
 
     const filterPanel = this.props.rules.map(rule => {
       const traitemen = TraitementType(rule.type);

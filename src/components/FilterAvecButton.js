@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
-import { TextField, Button } from "@material-ui/core";
+import { TextField, Button, Paper } from "@material-ui/core";
 import { TraitementType } from "./Utils";
 import DatePicker from "./Date";
 import MultiSelect from "./Select";
@@ -15,8 +15,7 @@ const styles = theme =>
     },
 
     textField: {
-      width: 150,
-      margin: 5
+      width: "100%"
     },
     grid: {
       maxWidth: "100%"
@@ -33,218 +32,265 @@ class FilterAvecButton extends Component {
     serch: {},
     array: {}
   };
-  getCheckboxData = (val, label) => {
+  getCheckboxData = (val, label, type) => {
     let array = { ...this.state.array };
-    array[label] = val;
+    array[label] = { value: val, type: type };
     this.setState({ array });
   };
-  getRadioData = (val, label) => {
+  getRadioData = (val, label, type) => {
     let serch = { ...this.state.serch };
-    serch[label] = val;
+    serch[label] = { value: val, type: type };
     this.setState({ serch });
   };
 
-  handleChange = (event, label, MinOrMax) => {
-  let minmax = {
+  handleChange = (event, label, MinOrMax, type) => {
+    let minmax = {
       ...this.state.minmax
     };
     let serch = { ...this.state.serch };
     if (MinOrMax) {
-    
-
       if (minmax[label]) {
         const myLabel = { ...minmax[label] };
         myLabel[MinOrMax] = event.target.value;
-        minmax[label] = myLabel;
+        minmax[label] = { value: myLabel, type: type };
         this.setState({ minmax });
       } else {
-        minmax[label] = { [MinOrMax]: event.target.value };
+        minmax[label] = {
+          value: { [MinOrMax]: event.target.value },
+          type: type
+        };
         this.setState({ minmax });
       }
     } else {
-      serch[label] = event.target.value;
+      serch[label] = { value: event.target.value, type: type };
 
       this.setState({ serch });
     }
   };
   handeleClick = () => {
     const filterData = { ...this.state };
-    this.props.sendData(filterData);
+    this.props.sendData({filterData : filterData});
   };
-  getDatePickerData = val => {
+  getDatePickerData = (val, label) => {
     const minmax = { ...this.state.minmax };
-    if (this.state.minmax.date) {
+    if (this.state.minmax[label]) {
+      const myLabel = { ...this.state.minmax[label] };
       if (val.from) {
-        minmax.date.from = val.from;
+        myLabel.value.from = val.from;
       } else {
-        minmax.date.to = val.to;
+        myLabel.value.to = val.to;
       }
+      minmax[label] = myLabel;
     } else {
-      minmax.date = val;
+      minmax[label] = { value: val, type: "date" };
     }
     this.setState({ minmax });
   };
-  getMultiSelectValue = (val, label,returnType) => {
-    if(returnType){
-      const array = {...this.state.array};
-      array[label] = val.map(v=>v.value);
+  getMultiSelectValue = (val, label, returnType, type) => {
+    if (returnType) {
+      const array = { ...this.state.array };
+      array[label] = { value: val.map(v => v.value), type: type };
       this.setState({ array });
-    }else{
-      const serch = {...this.state.serch};
-      serch[label] = val.value;
+    } else {
+      const serch = { ...this.state.serch };
+      serch[label] = { value: val.value, type: type };
       this.setState({ serch });
     }
-   
   };
 
   render() {
     const { classes } = this.props;
-    
 
     const filterPanel = this.props.rules.map(rule => {
       const traitemen = TraitementType(rule.type);
       rule.label = rule.label.trim();
 
       return (
-        <Grid xs={12} sm={4} item key={rule.label}>
-      
-          {traitemen.type === "number" && traitemen.returnType === "minmax" ? (
-            // Number minmax
+        <Grid xs={6} sm={3} item key={rule.label}>
+          <Paper className={classes.container}>
+            {traitemen.type === "number" &&
+            traitemen.returnType === "minmax" ? (
+              // Number minmax
 
-            <span>
+              <span>
+                <TextField
+                  type="number"
+                  defaultValue={traitemen.step}
+                  step={traitemen.step}
+                  label={rule.label}
+                  helperText="Min"
+                  className={classes.textField}
+                  style={{ width: "50%" }}
+                  onChange={event =>
+                    this.handleChange(event, rule.label, "min", "number")
+                  }
+                />
+                <TextField
+                  type="number"
+                  defaultValue={traitemen.step}
+                  step={traitemen.step}
+                  label={rule.label}
+                  helperText="Max"
+                  className={classes.textField}
+                  style={{ width: "50%" }}
+                  onChange={event =>
+                    this.handleChange(event, rule.label, "max", "number")
+                  }
+                />
+              </span>
+            ) : null}
+            {traitemen.type === "number" &&
+            traitemen.returnType !== "minmax" ? (
+              // Number
+
+              <span>
+                <TextField
+                  type="number"
+                  defaultValue={traitemen.step}
+                  step={traitemen.step}
+                  label={rule.label}
+                  className={classes.textField}
+                  onChange={event =>
+                    this.handleChange(event, rule.label, null, "number")
+                  }
+                />
+              </span>
+            ) : null}
+
+            {traitemen.type === "string" ? (
               <TextField
-                type="number"
-                defaultValue={traitemen.step}
-                step={traitemen.step}
-                label={rule.label}
-                helperText="Min"
+                placeholder={rule.label}
+                onChange={event =>
+                  this.handleChange(event, rule.label, null, "string")
+                }
                 className={classes.textField}
-                onChange={event => this.handleChange(event, rule.label, "min")}
+                
               />
+            ) : null}
+
+            {traitemen.type === "time" && traitemen.returnType === "minmax" ? (
+              <span>
+                <TextField
+                  type="time"
+                  label={`${rule.label} début`}
+                  defaultValue={traitemen.defaultValue}
+                  inputProps={{ step: traitemen.step }}
+                  onChange={event =>
+                    this.handleChange(event, rule.label, "start", "time")
+                  }
+                  style={{ width: "50%" }}
+                  className={classes.textField}
+                />
+
+                <TextField
+                  label={`${rule.label} fin`}
+                  type={traitemen.type}
+                  defaultValue={traitemen.defaultValue}
+                  inputProps={{ step: Number.parseInt(traitemen.step) }}
+                  onChange={event =>
+                    this.handleChange(event, rule.label, "end", "time")
+                  }
+                  style={{ width: "50%" }}
+                  className={classes.textField}
+                />
+              </span>
+            ) : null}
+
+            {traitemen.type === "time" && traitemen.returnType !== "minmax" ? (
+              <span>
+                <TextField
+                  type="time"
+                  label={rule.label}
+                  defaultValue={traitemen.defaultValue}
+                  inputProps={{ step: traitemen.step }}
+                  onChange={event =>
+                    this.handleChange(event, rule.label, null, "time")
+                  }
+                  className={classes.textField}
+                />
+              </span>
+            ) : null}
+
+            {traitemen.type === "date" && traitemen.returnType === "minmax" ? (
+              <DatePicker
+                sendDatePickerData={val =>
+                  this.getDatePickerData(val, rule.label)
+                }
+              />
+            ) : null}
+            {traitemen.type === "date" && traitemen.returnType !== "minmax" ? (
               <TextField
-                type="number"
-                defaultValue={traitemen.step}
-                step={traitemen.step}
-                label={rule.label}
-                helperText="Max"
-                className={classes.textField}
-                onChange={event => this.handleChange(event, rule.label, "max")}
-              />
-            </span>
-          ) : null}
-          {traitemen.type === "number" && traitemen.returnType !== "minmax" ? (
-            // Number
-
-            <span>
-              <TextField
-                type="number"
-                defaultValue={traitemen.step}
-                step={traitemen.step}
-                label={rule.label}
-                className={classes.textField}
-                onChange={event => this.handleChange(event, rule.label)}
-              />
-            </span>
-          ) : null}
-
-          {traitemen.type === "string" ? (
-            <TextField
-              placeholder={rule.label}
-              onChange={event => this.handleChange(event, rule.label)}
-              className={classes.textField}
-              className={classes.textField}
-            />
-          ) : null}
-
-          {traitemen.type === "time" && traitemen.returnType === "minmax" ? (
-            <span>
-              <TextField
-                type="time"
-                label={`${rule.label} début`}
-                defaultValue={traitemen.defaultValue}
-                inputProps={{ step: traitemen.step }}
-                onChange={event => this.handleChange(event, rule.label, "start")}
-                style={{ margin: 5 }}
-                className={classes.textField}
-              />
-
-              <TextField
-                label={`${rule.label} fin`}
-                type={traitemen.type}
-                defaultValue={traitemen.defaultValue}
-                inputProps={{ step: Number.parseInt(traitemen.step) }}
-                onChange={event => this.handleChange(event, rule.label, "end")}
-                style={{ margin: 5 }}
-                className={classes.textField}
-              />
-            </span>
-          ) : null}
-
-           {traitemen.type === "time" && traitemen.returnType !== "minmax" ? (
-            <span>
-              <TextField
-                type="time"
-                label={rule.label}
-                defaultValue={traitemen.defaultValue}
-                inputProps={{ step: traitemen.step }}
-                onChange={event => this.handleChange(event, rule.label)}
-                style={{ margin: 5 }}
-                className={classes.textField}
-              />
-
-            </span>
-          ) : null}
-
-          {traitemen.type === "date" && traitemen.returnType === "minmax" ? (
-            <DatePicker sendDatePickerData={this.getDatePickerData} />
-          ) : null}
-          {traitemen.type === "date" && traitemen.returnType !== "minmax" ? (
-            <TextField
                 type="date"
                 label={rule.label}
                 defaultValue={traitemen.defaultValue}
-                
-                onChange={event => this.handleChange(event, rule.label)}
+                onChange={event =>
+                  this.handleChange(event, rule.label, null, "date")
+                }
                 style={{ margin: 5 }}
                 className={classes.textField}
               />
-          ) : null}
+            ) : null}
 
-          {traitemen.type === "set" ? (
-            <Set
-              sendCheckBoxData={val => this.getCheckboxData(val, rule.label)}
-              items={traitemen.defaultValue}
-              label={rule.label}
-            />
-          ) : null}
-          {traitemen.type === "enum" ? (
-            <Enum
-              sendRadioData={val => this.getRadioData(val, rule.label)}
-              items={traitemen.defaultValue}
-              label={rule.label}
-            />
-          ) : null}
+            {traitemen.type === "set" ? (
+              <Set
+                sendCheckBoxData={val =>
+                  this.getCheckboxData(
+                    val,
+                    rule.label,
+                    isNaN(val) ? "string" : "number"
+                  )
+                }
+                items={traitemen.defaultValue}
+                label={rule.label}
+              />
+            ) : null}
+            {traitemen.type === "enum" ? (
+              <Enum
+                sendRadioData={val =>
+                  this.getRadioData(
+                    val,
+                    rule.label,
+                    isNaN(val) ? "string" : "number"
+                  )
+                }
+                items={traitemen.defaultValue}
+                label={rule.label}
+              />
+            ) : null}
 
-          {traitemen.type === "Select"  && traitemen.returnType === "multiple" ? (
-            <MultiSelect
-              options={traitemen.defaultValue}
-              placeholder={rule.label}
-              sendMultiSelectData={val =>
-                this.getMultiSelectValue(val, rule.label,"multiple")
-              }
-              isMulti={true}
-            />
-          ) : null}
-          {traitemen.type === "Select" && traitemen.returnType !== "multiple" ? (
-            <MultiSelect
-              options={traitemen.defaultValue}
-              placeholder={rule.label}
-              sendMultiSelectData={val =>
-                this.getMultiSelectValue(val, rule.label)
-              }
-              isMulti={false}
-            />
-          ) : null}
+            {traitemen.type === "Select" &&
+            traitemen.returnType === "multiple" ? (
+              <MultiSelect
+                options={traitemen.defaultValue}
+                placeholder={rule.label}
+                sendMultiSelectData={val =>
+                  this.getMultiSelectValue(
+                    val,
+                    rule.label,
+                    "multiple",
+                    isNaN(val[0].value) ? "string" : "number"
+                  )
+                }
+                isMulti={true}
+              />
+            ) : null}
+            {traitemen.type === "Select" &&
+            traitemen.returnType !== "multiple" ? (
+              <MultiSelect
+                options={traitemen.defaultValue}
+                placeholder={rule.label}
+                sendMultiSelectData={val =>
+                  this.getMultiSelectValue(
+                    val,
+                    rule.label,
+                    null,
+                    isNaN(val.value) ? "string" : "number"
+                  )
+                }
+                isMulti={false}
+              />
+            ) : null}
+          </Paper>
         </Grid>
       );
     });
@@ -252,11 +298,11 @@ class FilterAvecButton extends Component {
       <div className={classes.container}>
         <Grid
           direction="row"
-          justify="space-evenly"
-          alignItems="center"
+          justify="center"
+          alignItems="baseline"
           className={classes.grid}
           container
-          spacing={16}
+          spacing={8}
         >
           {filterPanel}
         </Grid>
