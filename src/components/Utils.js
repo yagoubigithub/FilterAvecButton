@@ -10,7 +10,7 @@ export function TraitementType(type) {
     } else {
       return {
         type: "number",
-        step: step,
+        step: parseFloat(step),
         defaultValue: 0,
         returnType: "minmax"
       };

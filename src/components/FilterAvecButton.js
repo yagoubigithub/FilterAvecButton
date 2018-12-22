@@ -102,7 +102,7 @@ class FilterAvecButton extends Component {
                 <TextField
                   type="number"
                   defaultValue={traitemen.step}
-                  step={traitemen.step}
+                  inputProps={{step : traitemen.step}}
                   label={rule.label}
                   helperText="Min"
                   className={classes.textField}
@@ -114,7 +114,7 @@ class FilterAvecButton extends Component {
                 <TextField
                   type="number"
                   defaultValue={traitemen.step}
-                  step={traitemen.step}
+                  inputProps={{step : traitemen.step}}
                   label={rule.label}
                   helperText="Max"
                   className={classes.textField}
@@ -133,7 +133,7 @@ class FilterAvecButton extends Component {
                 <TextField
                   type="number"
                   defaultValue={traitemen.step}
-                  step={traitemen.step}
+                  inputProps={{step : traitemen.step}}
                   label={rule.label}
                   className={classes.textField}
                   onChange={event =>
