@@ -25,43 +25,34 @@ const styles = theme =>
 
 class FilterAvecButton extends Component {
   state = {
-    minmax: {},
-    serch: {},
-    array: {}
+    
   };
-  getCheckboxData = (val, label, type) => {
-    let array = { ...this.state.array };
-    array[label] = { value: val, type: type };
-    this.setState({ array });
+  getCheckboxData = (val, label) => {
+    
+    this.setState({ [label] :{aray : val} });
   };
-  getRadioData = (val, label, type) => {
-    let serch = { ...this.state.serch };
-    serch[label] = { value: val, type: type };
-    this.setState({ serch });
+  getRadioData = (val, label) => {
+   
+    this.setState({ [label] :{serch : val} });
   };
 
   handleChange = (event, label, MinOrMax, type) => {
-    let minmax = {
-      ...this.state.minmax
-    };
-    let serch = { ...this.state.serch };
+   
+    
     if (MinOrMax) {
-      if (minmax[label]) {
-        const myLabel = { ...minmax[label] };
-        myLabel.value[MinOrMax] = event.target.value;
-        minmax[label] = myLabel;
-        this.setState({ minmax });
+      if (this.state[label]) {
+        const myLabel = { ...this.state[label] };
+        myLabel[MinOrMax] = event.target.value;
+        
+        this.setState({ [label] :myLabel });
       } else {
-        minmax[label] = {
-          value: { [MinOrMax]: event.target.value },
-          type: type
-        };
-        this.setState({ minmax });
+        
+        this.setState({ [label] : {[MinOrMax]: event.target.value} });
       }
     } else {
-      serch[label] = { value: event.target.value, type: type };
+     
 
-      this.setState({ serch });
+      this.setState({ [label] : {serch : event.target.value} });
     }
   };
   handeleClick = () => {
@@ -69,29 +60,27 @@ class FilterAvecButton extends Component {
     this.props.sendData(filterData);
   };
   getDatePickerData = (val, label) => {
-    const minmax = { ...this.state.minmax };
-    if (this.state.minmax[label]) {
-      const myLabel = { ...this.state.minmax[label] };
+    
+    if (this.state[label]) {
+      const myLabel = { ...this.state[label] };
       if (val.from) {
-        myLabel.value.from = val.from;
+        myLabel.from = val.from;
       } else {
-        myLabel.value.to = val.to;
+        myLabel.to = val.to;
       }
-      minmax[label] = myLabel;
+      this.setState({[label] : myLabel})
     } else {
-      minmax[label] = { value: val, type: "date" };
+      this.setState({ [label]  :val });
     }
-    this.setState({ minmax });
+    
   };
-  getMultiSelectValue = (val, label, returnType, type) => {
+  getMultiSelectValue = (val, label,returnType) => {
     if (returnType) {
-      const array = { ...this.state.array };
-      array[label] = { value: val.map(v => v.value), type: type };
-      this.setState({ array });
+      
+      this.setState({ [label] : {array : val.map(v => v.value)} });
     } else {
-      const serch = { ...this.state.serch };
-      serch[label] = { value: val.value, type: type };
-      this.setState({ serch });
+     
+      this.setState({ [label] : {serch : val.value} });
     }
   };
 
