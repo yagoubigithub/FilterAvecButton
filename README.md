@@ -45,18 +45,18 @@ filterData  : {
 
 | rules type | filterData type |
 | ------ | ------ |
-| Select-Multiple('value1','value2','value3',...) |   Name of the label :{ ```array``` : [Array of values] }  |
-| Select('value1','value2','value3',...)  |  Name of the label : {```serch``` : "the value of selected value" }   |
-| varChar  |   Name of the label : {```serch```  : "the value typed in the textfield"  } |
-| decimale(Number of digits after comma) |   Name of label : {```serch```  : "the number typed in the textfield " }  |
-| decimale-minmax(Number of digits after comma) |  Name of label : {```minmax``` :{```min``` : "min value", ```max``` : "max value"}  }|
-| date-minmax |  Name of label : {```minmax``` :{```from``` : "Start date", ```to``` : "End date"} }|
-| date |   Name of label : {```serch```  : "the date returned from textfield"}  |
-| Time(step) step= ```s``` the step is by second OR ```m``` the step is by minute OR ```h``` the step is by houre   |   Name of label : {```serch```  : "the time returned from  textfield" } |
-|Time-minmax(step)|Name of label : {```minmax``` :{```start``` : "Start time", ```end``` : "End time"}  } |
-| set('value1','value2','value3',...)  |Name of label :{ ```array```  : [Array of values] } |
-|enum('value1','value2','value3',...)|    Name of label : {```serch```  : "the value selected from radio buttons" } |
-| int-minmax |  Name of label : {```minmax``` :{```min``` : "number typed in textfield", ```max``` : "number typed in textfield"}  }|
-| int |    Name of label : {```serch```  : "the number typed in the textfield " } |
+| ```Select-Multiple```('value1','value2','value3',...) |   Name of the label :{ ```array``` : [Array of values] }  |
+| ```Select```('value1','value2','value3',...)  |  Name of the label : {```serch``` : "the value of selected value" }   |
+| ```varChar```  |   Name of the label : {```serch```  : "the value typed in the textfield"  } |
+| ```decimale```(Number of digits after comma) |   Name of label : {```serch```  : "the number typed in the textfield " }  |
+| ```decimale-minmax```(Number of digits after comma) |  Name of label : {```minmax``` :{```min``` : "min value", ```max``` : "max value"}  }|
+| ```date-minmax``` |  Name of label : {```minmax``` :{```from``` : "Start date", ```to``` : "End date"} }|
+| ```date``` |   Name of label : {```serch```  : "the date returned from textfield"}  |
+| ```Time```(step) step= ```s``` the step is by second OR ```m``` the step is by minute OR ```h``` the step is by houre   |   Name of label : {```serch```  : "the time returned from  textfield" } |
+|```Time-minmax```(step)|Name of label : {```minmax``` :{```start``` : "Start time", ```end``` : "End time"}  } |
+| ```set```('value1','value2','value3',...)  |Name of label :{ ```array```  : [Array of values] } |
+|```enum```('value1','value2','value3',...)|    Name of label : {```serch```  : "the value selected from radio buttons" } |
+| ```int-minmax``` |  Name of label : {```minmax``` :{```min``` : "number typed in textfield", ```max``` : "number typed in textfield"}  }|
+| ```int``` |    Name of label : {```serch```  : "the number typed in the textfield " } |
 
 
