@@ -17,7 +17,7 @@ const rules =[
   { label: "SlectMultiple__number", type: "Select(114,92,43,41,'15',8,14,35,6,788,47)" },
   { label: "nom", type: "varChar" },
   { label: "montant", type: "decimale(5)" },
-  { label: "argent", type: "decimale-minmax(3)" },
+  { label: "argent", type: "decimale-minmax(1)" },
   { label: "date_range", type: "date-minmax" },
   { label: "date de naissance", type: "date" },
   { label: "time", type: "Time(s)" },

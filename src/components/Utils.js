@@ -1,7 +1,7 @@
 export function TraitementType(type) {
   if (/decimale|Decimale/.test(type)) {
     const NumberZero =
-        Number.parseInt(type.slice(type.indexOf("(") + 1 , type.indexOf(")") ));
+        Number.parseInt(type.slice(type.indexOf("(") + 1 , type.indexOf(")") )) -1;
       const step = "0." + "0".repeat(NumberZero) + "1";
     //traitemen decimale
     if (!/minmax|MINMAX|MinMax/.test(type)) {

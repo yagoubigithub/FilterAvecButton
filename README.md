@@ -9,7 +9,7 @@ the data is an object  : ```filterData```  this object has 3 object ```{minmax,a
 In parent compnent  :
 ```
 const rules =[
-   { label: "argent", type: "decimale-minmax(12,3)" },
+   { label: "argent", type: "decimale-minmax(3)" },
    { label: "deplacement", type: "time(s)" },
    { label: "technicien", type: "set('Mohamed','Ali','Omar','Rafik','Nadire')" },
   ];
