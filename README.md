@@ -27,42 +27,36 @@ const rules =[
 in the console :
 ```
 filterData  : {
-    minmax : {
         argent : { 
-                 value : {min :"12.02", max : "14:14"},
-                 type : "number" 
-              }
-         },
-    array :{
+                 minmax : {
+                    min :"12.02",
+                    max : "14:14"
+                 }
+              },
         technicien :{
-            value :['Mohamed','Rafik', 'Omar'],
-            type :'string'
+            array : ['Mohamed','Rafik', 'Omar']
         }
-    }
-    serch :{
-         deplacement : {
-             value : "12:05",
-             type : "time"
+      deplacement : {
+             serch : "12:05"
          }
-    }
 }
 ```
-#### The type in the rules and the type returned from FilterAvecButton :
+##### The type in the rules and the type returned from FilterAvecButton :
 
 | rules type | filterData type |
 | ------ | ------ |
-| Select-Multiple('value1','value2','value3',...) | in array object  :{ Name of label :{ value : [Array of value] ,type : type of the values in the array } |
-| Select('value1','value2','value3',...)  | in serch object  : {  Name of label : {value : "the value of selected value" ,type : "string"} }  |
-| varChar  | in serch object  : {  Name of label : {value : "the value typed in the textfield" ,type : "string"} } |
-| decimale(Number of digits after comma) | in serch object  : {  Name of label : {value : "the number typed in the textfield " ,type : "number"} } |
-| decimale-minmax(Number of digits after comma) | in minmax object  : {Name of label : {value :{min : "min value", max : "max value"} ,type : "number" }}|
-| date-minmax |  in minmax object  : {Name of label : {value :{from : "Start date", to : "End date"} ,type : "date" }}|
-| date | in serch object  : {  Name of label : {value : "the date returned from  textfield" ,type : "date"} } |
-| Time(step) step= ```s``` the step is by second OR ```m``` the step is by minute OR ```h``` the step is by houre   | in serch object  : {  Name of label : {value : "the time returned from  textfield" ,type : "time"} } |
-|Time-minmax(step)| in minmax object  : {Name of label : {value :{start : "Start time", end : "End time"} ,type : "time" }} |
-| set('value1','value2','value3',...)  | in array object :{ Name of label :{ value : [Array of values selected with checkbox] ,type : type of the values in the array } |
-|enum('value1','value2','value3',...)|  in serch object  : {  Name of label : {value : "the value selected from radio buttons" ,type : "string"} } |
-| int-minmax | in minmax object  : {Name of label : {value :{min : "number typed in textfield", max : "number typed in textfield"} ,type : "number" }}|
-| int | in serch object  : {  Name of label : {value : "the number typed in the textfield " ,type : "number"} } |
+| Select-Multiple('value1','value2','value3',...) |   Name of the label :{ ```array``` : [Array of values] }  |
+| Select('value1','value2','value3',...)  |  Name of the label : {```serch``` : "the value of selected value" }   |
+| varChar  |   Name of the label : {```serch```  : "the value typed in the textfield"  } |
+| decimale(Number of digits after comma) |   Name of label : {```serch```  : "the number typed in the textfield " }  |
+| decimale-minmax(Number of digits after comma) |  Name of label : {```minmax``` :{```min``` : "min value", ```max``` : "max value"}  }|
+| date-minmax |  Name of label : {```minmax``` :{```from``` : "Start date", ```to``` : "End date"} }|
+| date |   Name of label : {```serch```  : "the date returned from textfield"}  |
+| Time(step) step= ```s``` the step is by second OR ```m``` the step is by minute OR ```h``` the step is by houre   |   Name of label : {```serch```  : "the time returned from  textfield" } |
+|Time-minmax(step)|Name of label : {```minmax``` :{```start``` : "Start time", ```end``` : "End time"}  } |
+| set('value1','value2','value3',...)  |Name of label :{ ```array```  : [Array of values] } |
+|enum('value1','value2','value3',...)|    Name of label : {```serch```  : "the value selected from radio buttons" } |
+| int-minmax |  Name of label : {```minmax``` :{```min``` : "number typed in textfield", ```max``` : "number typed in textfield"}  }|
+| int |    Name of label : {```serch```  : "the number typed in the textfield " } |
 
 
