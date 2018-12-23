@@ -27,11 +27,9 @@ const rules =[
 in the console :
 ```
 filterData  : {
-        argent : { 
-                 minmax : {
+        argent : {
                     min :"12.02",
                     max : "14:14"
-                 }
               },
         technicien :{
             array : ['Mohamed','Rafik', 'Omar']
