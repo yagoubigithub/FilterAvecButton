@@ -12,19 +12,31 @@ export function TraitementType(type) {
         type: "number",
         step: parseFloat(step),
         defaultValue: 0,
-        returnType: "minmax"
+        returnType: "minmax",
+        width : "300px"
       };
     }
   } else if (/int|Int|INT|entier|Integer/.test(type)) {
     //traitemen entier
     if (!/minmax|MINMAX|MinMax/.test(type)) {
-      return { type: "number", step: 1, defaultValue: 0 };
+      return { type: "number", step: 1, defaultValue: 0  ,
+      width : "170px"};
     } else {
-      return { type: "number", step: 1, defaultValue: 0, returnType: "minmax" };
+      return { type: "number", step: 1, defaultValue: 0, returnType: "minmax" ,
+      width : "300px" };
     }
   } else if (/varChar|varchar|var-char|var_char/.test(type)) {
     //traitemen varchar
-    return { type: "string", step: null };
+    const numberChar =
+        Number.parseInt(type.slice(type.indexOf("(") + 1 , type.indexOf(")") ));
+        if(numberChar > 26){
+          return { type: "string", step: null,multiline :true,rows : 4 ,
+          width : "300px"};
+        }else{
+          return { type: "string", step: null,multiline :false ,rows : null,
+          width : "170px" };
+        }
+   
   } else if (/date|Date/.test(type)) {
 
 
@@ -37,9 +49,11 @@ export function TraitementType(type) {
       .join("-");
 
  if (!/minmax|MINMAX|MinMax/.test(type)) {
-  return { type: "date", defaultValue: currentDate };
+  return { type: "date", defaultValue: currentDate ,
+  width : "300px"};
  }else{
-  return { type: "date", defaultValue: currentDate,returnType  : "minmax" };
+  return { type: "date", defaultValue: currentDate,returnType  : "minmax",
+  width : "300px" };
  }
     
   } else if (/time|Time/.test(type)) {
@@ -54,7 +68,8 @@ export function TraitementType(type) {
       return {
         type: "time",
         step: 1,
-        defaultValue: currentTime.slice(0, currentTime.length - 3)
+        defaultValue: currentTime.slice(0, currentTime.length - 3),
+        width : "170px"
         
       };
       
@@ -62,7 +77,8 @@ export function TraitementType(type) {
       return {
         type: "time",
         step: 120,
-        defaultValue: currentTime.slice(0, currentTime.length - 3)
+        defaultValue: currentTime.slice(0, currentTime.length - 3),
+        width : "170px"
        
       };
      
@@ -70,7 +86,8 @@ export function TraitementType(type) {
       return {
         type: "time",
         step: 3600,
-        defaultValue: currentTime.slice(0, currentTime.length - 3)
+        defaultValue: currentTime.slice(0, currentTime.length - 3),
+        width : "170px"
        
       };
      
@@ -84,7 +101,8 @@ export function TraitementType(type) {
         type: "time",
         step: 1,
         defaultValue: currentTime.slice(0, currentTime.length - 3)
-        ,returnType  : "minmax"
+        ,returnType  : "minmax",
+        width : "300px"
       };
       
     case "m":
@@ -92,7 +110,8 @@ export function TraitementType(type) {
         type: "time",
         step: 120,
         defaultValue: currentTime.slice(0, currentTime.length - 3)
-        ,returnType  : "minmax"
+        ,returnType  : "minmax",
+        width : "300px"
       };
      
     case "h":
@@ -100,7 +119,8 @@ export function TraitementType(type) {
         type: "time",
         step: 3600,
         defaultValue: currentTime.slice(0, currentTime.length - 3)
-        ,returnType  : "minmax"
+        ,returnType  : "minmax",
+        width : "300px"
       };
      
       default : 
@@ -112,45 +132,49 @@ export function TraitementType(type) {
     const arraySet = type
       .slice(type.indexOf("(") + 1, type.indexOf(")"))
       .replace(/'/g, "")
-      .split(",");
-
-    return {
-      type: "set",
-      defaultValue: arraySet
-    };
-  } else if (/Enum|ENUM|enum/.test(type)) {
-    const arraySet = type
-      .slice(type.indexOf("(") + 1, type.indexOf(")"))
-      .replace(/'/g, "")
-      .split(",");
-
-    return {
-      type: "enum",
-      defaultValue: arraySet
-    };
-  } else if (/Select|select|SELECT/.test(type)) {
-    const arraySet = type
-      .slice(type.indexOf("(") + 1, type.indexOf(")"))
-      .replace(/'/g, "")
-      .split(",")
-      .map(value => {
-        return { value: value, label: value };
+      .split(",").map(value => {
+        return { value: value, label: value  };
       });
-      if(!/multiple|mult|MULTIPLE|Multiple/.test(type)){
+      if(arraySet.length <= 3){
         return {
-          type: "Select",
-          defaultValue: arraySet
+          type: "set",
+          defaultValue: arraySet,
+          width : "200px"
         };
       }else{
         return {
           type: "Select",
           defaultValue: arraySet,
-          returnType : "multiple"
+          returnType : "multiple",
+          width : "170px"
         };
       }
 
     
-  } else {
+  } else if (/Enum|ENUM|enum/.test(type)) {
+    const arrayEnum = type
+      .slice(type.indexOf("(") + 1, type.indexOf(")"))
+      .replace(/'/g, "")
+      .split(",").map(value => {
+        return { value: value, label: value };
+      });
+      if(arrayEnum.length <= 3){
+        return {
+          type: "enum",
+          defaultValue: arrayEnum,
+          width : "200px"
+        };
+      }else{
+        return {
+          type: "Select",
+          defaultValue: arrayEnum,
+          width : "170px",
+          returnType : "no-multiple",
+        };
+      }
+
+   
+  }  else {
     return {
       type: "",
       defaultValue: ""
