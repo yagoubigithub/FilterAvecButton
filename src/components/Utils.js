@@ -1,4 +1,4 @@
-export function TraitementType(type) {
+export function TraitementType(type,label) {
   if (/decimale|Decimale/.test(type)) {
     const NumberZero =
         Number.parseInt(type.slice(type.indexOf("(") + 1 , type.indexOf(")") )) -1;
@@ -30,11 +30,12 @@ export function TraitementType(type) {
     const numberChar =
         Number.parseInt(type.slice(type.indexOf("(") + 1 , type.indexOf(")") ));
         if(numberChar > 26){
-          return { type: "string", step: null,multiline :true,rows : 4 ,
-          width : "300px"};
+          console.log(Math.log10(numberChar));
+          return { type: "string", step: null,multiline :true,rows : 3 ,
+          width :  `${Number.parseInt(Math.log10(numberChar)) * 100}px`};
         }else{
           return { type: "string", step: null,multiline :false ,rows : null,
-          width : "170px" };
+          width : `${numberChar * 6}px` };
         }
    
   } else if (/date|Date/.test(type)) {
@@ -135,18 +136,36 @@ export function TraitementType(type) {
       .split(",").map(value => {
         return { value: value, label: value  };
       });
-      if(arraySet.length <= 3){
+      let maxSet = "";
+      let len = 10;
+      let lenLabel = label.length;
+      arraySet.forEach(element => {
+        if(element.value.length >= maxSet.length){
+         maxSet = element.value;
+        }
+      });
+      
+      if(maxSet.length > 10){
+        len = maxSet.length;
+
+      }
+      if(len < lenLabel){
+        len = lenLabel;
+      }
+      if(arraySet.length < 4){
         return {
           type: "set",
           defaultValue: arraySet,
-          width : "200px"
+          width : `${len * 10 + 50}px`
         };
+        
       }else{
+      
         return {
           type: "Select",
           defaultValue: arraySet,
           returnType : "multiple",
-          width : "170px"
+          width : `${len * 10 + 50}px`
         };
       }
 
@@ -158,17 +177,35 @@ export function TraitementType(type) {
       .split(",").map(value => {
         return { value: value, label: value };
       });
-      if(arrayEnum.length <= 3){
+      let maxEnum = "";
+      let len = 10;
+      let lenLabel = label.length;
+      arrayEnum.forEach(element => {
+        if(element.value.length >= maxEnum.length){
+         maxEnum = element.value;
+        }
+      });
+      console.log(`${maxEnum.length * 10 + 50}px`);
+      if(maxEnum.length > 10){
+        len = maxEnum.length;
+
+      }
+      if(len < lenLabel){
+        len = lenLabel;
+      }
+      if(arrayEnum.length < 4){
         return {
           type: "enum",
           defaultValue: arrayEnum,
-          width : "200px"
+          width : `${len * 10 + 50}px`,
         };
       }else{
+
+       
         return {
           type: "Select",
           defaultValue: arrayEnum,
-          width : "170px",
+          width : `${len * 10 + 50}px`,
           returnType : "no-multiple",
         };
       }

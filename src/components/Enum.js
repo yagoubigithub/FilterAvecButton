@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { Radio, FormControlLabel } from "@material-ui/core";
+import { Radio, FormControlLabel, Divider } from "@material-ui/core";
 
 class Enum extends Component {
   state = {
@@ -16,26 +16,24 @@ class Enum extends Component {
 
     const radios = items.map(item => {
       return (
-        <FormControlLabel
-          key={item}
-          control={
-            <Radio
-              checked={this.state.selectedValue === item}
-              onChange={this.handleChange}
-              value={item}
-            />
-          }
-          label={item}
-        />
+        <React.Fragment  key={item}>
+          <FormControlLabel
+           
+            control={
+              <Radio
+                checked={this.state.selectedValue === item}
+                onChange={this.handleChange}
+                value={item}
+              />
+            }
+            label={item}
+          />
+              <Divider variant="fullWidth" />
+        </React.Fragment>
       );
     });
 
-    return (
-      <span>
-        
-        {radios}
-      </span>
-    );
+    return <span>{radios}</span>;
   }
 }
 export default Enum;
