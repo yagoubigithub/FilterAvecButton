@@ -104,10 +104,13 @@ class FilterAvecButton extends Component {
 
   Rest = () => {
     const state = { ...this.state };
-    this.state.traitemens.map((item, index) => {
+    this.state.traitemens.map((item) => {
       if(item.traitemen.type === "Select"){
         this[`${item.rule.label}select`].OnRestSelect();
+       
 
+      }else if(item.traitemen.type === "set"){
+        this[`${item.rule.label}set`].OnRestSet();
       }
     });
     Object.keys(state).map(key => {
@@ -319,6 +322,7 @@ class FilterAvecButton extends Component {
 
           {item.traitemen.type === "set" ? (
             <Set
+            ref={input => (this[`${item.rule.label}set`] = input)}
               sendCheckBoxData={val =>
                 this.getCheckboxData(
                   val,
@@ -339,6 +343,7 @@ class FilterAvecButton extends Component {
                   isNaN(val) ? "string" : "number"
                 )
               }
+              
               items={item.traitemen.defaultValue.map(item => item.value)}
               label={item.rule.label}
             />

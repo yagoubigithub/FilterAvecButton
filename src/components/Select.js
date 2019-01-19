@@ -21,7 +21,7 @@ class MultiSelect extends Component {
         
       }
       OnRestSelect = () => {
-        console.log("OnResetSelect"  + this.props.options);
+       
         this.setState({ selectedOption : null });
       }
     render() { 
