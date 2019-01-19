@@ -7,7 +7,7 @@ import MultiSelect from "./Select";
 import Search from "@material-ui/icons/Search";
 import Set from "./Set";
 import Enum from "./Enum";
-import { Shuffle, ImportExport } from "@material-ui/icons";
+import { Shuffle, ImportExport,Replay } from "@material-ui/icons";
 const styles = theme => ({
   container: {
     padding: 5,
@@ -76,13 +76,12 @@ class FilterAvecButton extends Component {
     }
   };
   getMultiSelectValue = (val, label, returnType) => {
-    
-     console.log(val);
       if (returnType) {
        if (val.length > 0) 
         this.setState({ [label]: { array: val.map(v => v.value) } });
          
       } else {
+        if(val)
         this.setState({ [label]: { serch: val.value } });
       }
     
@@ -105,6 +104,12 @@ class FilterAvecButton extends Component {
 
   Rest = () => {
     const state = { ...this.state };
+    this.state.traitemens.map((item, index) => {
+      if(item.traitemen.type === "Select"){
+        this[`${item.rule.label}select`].OnRestSelect();
+
+      }
+    });
     Object.keys(state).map(key => {
       this.setState({ [key]: undefined });
     });
@@ -112,6 +117,9 @@ class FilterAvecButton extends Component {
     this.setState({
       traitemens: JSON.parse(localStorage.getItem("defaultTraitemens"))
     });
+    
+
+    
   };
 
   componentWillMount() {
@@ -128,6 +136,7 @@ class FilterAvecButton extends Component {
       alert("Sorry, your browser does not support Web Storage...");
     }
   }
+ 
   render() {
     const { classes } = this.props;
 
@@ -340,6 +349,7 @@ class FilterAvecButton extends Component {
             <MultiSelect
               options={item.traitemen.defaultValue}
               placeholder={item.rule.label}
+              ref={input => (this[`${item.rule.label}select`] = input)}
               sendMultiSelectData={val =>
                 this.getMultiSelectValue(
                   val,
@@ -394,7 +404,7 @@ class FilterAvecButton extends Component {
             size="small"
             onClick={this.Rest}
           >
-            Rest
+           <Replay />
           </Button>
         </div>
       </div>

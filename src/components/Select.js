@@ -13,26 +13,33 @@ const customStyles = {
 class MultiSelect extends Component {
    
     state = {
-        selectedOption: null,
+        selectedOption:  null,
       }
       handleChange = (selectedOption) => {
         this.setState({ selectedOption });
         this.props.sendMultiSelectData(selectedOption);
         
       }
+      OnRestSelect = () => {
+        console.log("OnResetSelect"  + this.props.options);
+        this.setState({ selectedOption : null });
+      }
     render() { 
         const { selectedOption } = this.state;
         return (
+          <React.Fragment>
             <Select
             value={selectedOption}
             onChange={this.handleChange}
             options={this.props.options}
             isMulti={this.props.isMulti}
-            isSearchable
+            isSearchable={true}
+            isClearable={true}
             placeholder={this.props.placeholder}
             styles={customStyles}
            
           />
+          </React.Fragment>
           );
     }
 }
