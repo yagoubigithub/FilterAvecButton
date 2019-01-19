@@ -22,7 +22,12 @@ const rules =[
   };
 ```
  ```sh
-<FilterAvecButton rules={rules} sendData={filterData=>this.getData(filterData)} />
+<FilterAvecButton
+    rules={rules} 
+    sendData={filterData=>this.getData(filterData)}
+    maxWidth={400} /* max width of textfield */
+    minWidth={200} /* min width of textfield */
+/>
 ```
 #### the Data from the  FilterAvecButton  component
 in the console :
